@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'main.html' %}
+{% block content %}
+
+
+ <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+
+<h1>comment here</h1>
+
+<form action=" " method="POST">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <input  type="submit">
+</form>
+
+
+
+
+
+{% endblock %}

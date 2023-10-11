@@ -1,10 +1,161 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
-$END$
-</body>
+<style>
+
+        .post-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            background-color: beige;
+        }
+
+
+        .like-button {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .post-description {
+            text-align: center;
+            padding-left: 10px;
+        }
+        .project-image {
+        max-width: 25%;
+        height: auto;
+    }
+    .edit-button {
+  display: inline-block;
+  background-color: black;
+  color: #fff;
+  padding: 3px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+  .button-box {
+    background-color: black;
+    position: absolute; down: 5px; center: 5px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+  }
+</style>
+
+    {% if request.user.is_authenticated %}
+
+        <div class="button-box">
+            <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'create-project' %}" class="nav-link"> Uploads |</a>
+            <a href="{% url 'user-profile' %}" class="nav-link"> Profile </a>
+
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+        </div>
+            {% else %}
+            <div>
+                <a href="{% url 'login' %}" class="nav-link"> | Login/Signup</a>
+            </div>
+
+<hr>
+{% endif %}
+
+
+
+
+<div style="margin: 20px;">
+    <form id="searchForm" style="text-align: right;" action="{% url 'projects' %}" method="get">
+        <span style="position: absolute; down: 10px; left:1250px;">
+                <!-- Replace with your preferred icon HTML -->
+                <i class="fa fa-search" style="color: black;"></i>
+            </span>
+        <br>
+        <div style="position: relative;">
+            <input style="padding: 5px; width: 300px; border: 2px solid black;"
+                   id="searchInput" type="text" name="search_query" value="{{search_query}}" placeholder="Search by username" />
+
+        </div>
+        <br>
+        <input style="margin-top: 10px; padding: 10px 20px; background-color: black; color: white; border: none; cursor: pointer;" type="submit" value="Submit" />
+    </form>
+</div>
+
+
+
+
+
+{% for project in projects %}
+
+
+    {% if project.owner == request.user %}
+
+    <div class="post-container"><h3><a href="{% url 'single-profile' project.owner.profile.id %}">{{ project.owner }}</a></h3>
+        {% if project.image %}
+                <img class="project-image" src="{{project.image.url}}" alt="project image">
+                {% elif project.video %}
+                <video controls width="300">
+                    <source src="{{project.video.url}}" type="video/mp4">
+                </video>
+        {% endif %}
+        <div class="post-description"><p>{{project.description}}</p>
+
+
+            <a href="{% url 'like-project' project.id %}" class="like-button"><i class="fa fa-heart"></i>{{project.like}}</a>
+            <a href="{% url 'comment-project' project.id %}"><i class="fas fa-comment fa-1x" style="color: black;"></i> </a>
+                    <a href="{% url 'show-comment' project.id %}"><i class="fas fa-eye fa-1x" style="color: red;"></i> </a>
+
+
+            <a href="{% url 'update-project' project.id %}" class="edit-button"><i class="fas fa-pencil-alt fa-lg"></i></a>
+            <a href="{% url 'delete-project' project.id %}" class="edit-button"><i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>
+
+    {% else  %}
+
+            <div class="post-container"><h3><a href="{% url 'single-profile' project.owner.profile.id %}">{{ project.owner }}</a></h3>
+                {% if project.image %}
+                <img class="project-image" src="{{project.image.url}}" alt="project image">
+                {% elif project.video %}
+                <video controls width="300">
+                    <source src="{{project.video.url}}" type="video/mp4">
+                </video>
+                {% endif %}
+
+                <div class="post-description"><p>{{project.description}}</p>
+                    <a href="{% url 'like-project' project.id %}" class="like-button"><i class="fa fa-heart"></i>{{project.like}}</a>
+                    <a href="{% url 'comment-project' project.id %}"><i class="fas fa-comment fa-1x" style="color: black;"></i> </a>
+                    <a href="{% url 'show-comment' project.id %}"><i class="fas fa-eye fa-1x" style="color: red;"></i> </a>
+
+
+                </div>
+            </div>
+    {% endif %}
+
+{% endfor %}
 </html>
+{% endblock content %}
+

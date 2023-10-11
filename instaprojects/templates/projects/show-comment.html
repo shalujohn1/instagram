@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% extends 'main.html' %}
+{% block content %}
+
+
+
+
+<style>
+
+
+
+  .nav-link {
+    color: black;
+    text-decoration: none;
+  }
+    .comment-box {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+    }
+
+    .comment-user {
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    .comment-created {
+        font-size: small;
+    }
+
+    .comment-text {
+        font-size: medium;
+    }
+</style>
+
 <body>
-$END$
+<div class="button-box">
+            <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+</div>
+
+
+
+{% for comment in comments %}
+    <div class="comment-box">
+        <p class="comment-user">{{comment.user}}</p>
+        <p class="comment-text">{{comment.comments}}</p>
+
+        <p class="comment-created">{{comment.created}}</p>
+    </div>
+
+{% endfor %}
+
 </body>
-</html>
+
+
+
+
+{% endblock content %}

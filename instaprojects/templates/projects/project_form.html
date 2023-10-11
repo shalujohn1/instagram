@@ -1,12 +1,32 @@
 {% extends 'main.html' %}
 {% block content %}
+<style>
+    .button-box {
+    background-color: black;
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+  }
+  .nav-link {
+    color: white;
+    text-decoration: none;
+  }
+</style>
 
-<h1>NOTE SPACE</h1>
-<form action=" " method="POST">
+
+<div class="button-box">
+            <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+</div>
+<h1>Upload your Post</h1>
+
+<form action=" " method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {{form.as_p}}
     <input  type="submit">
 </form>
+
+
 
 {% endblock %}
