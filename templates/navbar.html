@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% load static %}
+<style>
+     h1 {
+            font-family: 'Tahoma', italic bold 15px monospace;; /* Use a font similar to Instagram's */
+            font-size: 48px; /* Adjust the font size as needed */
+            color: #FF4080; /* Instagram's logo color */
+            text-align: center;
+        }
+        .instagram-logo {
+            width: 60px; /* Set the desired logo width */
+            height: 60px; /* Set the desired logo height */
+            background-image: url(% static "images/logo.jpeg" %); /* Replace 'instagram-logo.png' with the path to your logo image */
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 10px; /* Add some space to the right of the logo */
+        }
+
+</style>
 <body>
-$END$
+    <div class="instagram-logo">
+    </div>
+
+
 </body>
-</html>
+<h1>INSTAGRAM</h1>
+<hr>
+
+
+<!--<style>-->
+<!--  .button-box {-->
+<!--    background-color: black;-->
+<!--    display: inline-block;-->
+<!--    padding: 10px 20px; /* Adjust padding as needed */-->
+<!--    border-radius: 5px; /* Optional: Add rounded corners */-->
+<!--  }-->
+
+<!--  .nav-link {-->
+<!--    color: white;-->
+<!--    text-decoration: none;-->
+<!--  }-->
+<!--</style>-->
+
+<!--<div class="button-box">-->
+<!--  <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>-->
+<!--  <a href="{% url 'create-project' %}" class="nav-link"> Upload Image</a>-->
+
+<!--    {% if request.user.is_authenticated %}-->
+<!--          <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>-->
+<!--          {% else %}-->
+<!--          <a href="{% url 'login' %}" class="nav-link"> | Login/Signup</a>-->
+<!--    {% endif %}-->
+<!--</div>-->
