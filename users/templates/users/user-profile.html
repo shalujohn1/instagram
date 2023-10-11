@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'main.html' %}
+{% block content %}
+<style>
+     body {
+        text-align: center;
+    }
+    h2, p {
+        text-align: center;
+    }
+    .profile-image {
+        display: block;
+        margin: 0 auto;
+        max-width: 25%;
+        height: 20%;
+        border-radius: 60%;
+    }
+    .button-box {
+    background-color: black;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+  }
+  .edit-button {
+  display: inline-block;
+  background-color: black;
+  color: #fff;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+</style>
 <body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <div class="button-box">
+            <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+        </div>
+<br><label>
+
+</label><br>
+
+{% if profiles.profile_image %}
+    <img class="profile-image" src="{{profiles.profile_image.url}}" alt="Profile Image">
+{% endif %}
+    <h2>{{ profiles.name }} <a href="{% url 'edit-account' %}" class="edit-button">
+  <i class="fas fa-pencil-alt fa-lg"></i>
+</a></h2>
+    <p>{{ profiles.bio }}</p>
 
 </body>
-</html>
+
+
+
+
+{% endblock content %}

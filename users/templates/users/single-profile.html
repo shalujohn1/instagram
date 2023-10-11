@@ -1,10 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% extends 'main.html' %}
+{% block content %}
+
+
+<style>
+     body {
+        text-align: center;
+    }
+    h2, p {
+        text-align: center;
+        margin-right: 230px
+    }
+    .profile-image {
+        display: block;
+        margin: 0;
+        max-width: 15%;
+        border-radius: 50%;
+        float: left;
+        margin-right: 20px
+
+    }
+    .button-box {
+    background-color: black;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+  }
+  .edit-button {
+  display: inline-block;
+  background-color: black;
+  color: #fff;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+
+}
+
+.dark-button {
+  background-color: darkgrey;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 15px;
+  text-transform: uppercase;
+  margin-right: 230px;
+  margin-top: 3px;
+
+}
+
+
+.box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.count-container {
+  text-align: center;
+}
+
+.count-circle {
+  width: 100px;
+  height: 100px;
+  background-color: darkgrey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.count-circle a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+ .bio {
+        text-align: left;
+        margin-top: 250px;
+        margin-left: 90px
+    }
+
+</style>
 <body>
-$END$
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <div class="button-box">
+            <a href="{% url 'projects' %}" class="nav-link">HOME   | </a>
+            <a href="{% url 'logout' %}" class="nav-link"> | Logout</a>
+        </div>
+<br><label>
+
+</label><br>
+
+    <img class="profile-image" src="{{profile.profile_image.url}}" alt="Profile Image">
+    <h2>{{ profile.name }}</h2>
+</a></h2>
+
+{% if user != profile.user %}
+<div class="button-container">
+        <form method="POST" action="{% url 'unfollow' profile.id %}">
+          {% csrf_token %}
+          <button class="dark-button" type="submit">Unfollow</button>
+        </form>
+
+        <form method="POST" action="{% url 'follow' profile.id %}">
+          {% csrf_token %}
+          <button class="dark-button" type="submit">Follow</button>
+        </form>
+    </div>
+      {% endif %}
+
+
+<div class="bio">
+    <h3>{{ profile.bio }}</h3>
+</div>
+
+
+
+
+<div class="box">
+  <div class="count-container">
+    <div class="count-circle">
+      <a href="{% url 'followers' profile.id %}">{{ profile.user_follower.count }}</a>
+    </div>
+    <h4>Followers</h4>
+  </div>
+  <div class="count-container">
+    <div class="count-circle">
+      <a href="{% url 'following' profile.id %}">{{ profile.user_followed.count }}</a>
+    </div>
+    <h4>Following</h4>
+  </div>
+</div>
+
 </body>
-</html>
+
+
+
+
+
+{% endblock content %}

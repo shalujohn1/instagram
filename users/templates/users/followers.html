@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'main.html' %}
+{% block content %}
+
+
+<a href="{% url 'single-profile' user.profile.id %}">back</a>
+<h2>followers List</h2>
+{% for follow in follow %}
+
+<h4>{{follow.followed.name}}</h4>
+
+{% endfor %}
+
+{% endblock content %}
