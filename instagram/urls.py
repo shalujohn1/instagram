@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('instaprojects.urls')),
     path('users/', include('users.urls')),
+    path('api/', include('api.urls'))
 ]
 
 
